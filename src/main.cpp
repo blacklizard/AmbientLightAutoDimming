@@ -17,6 +17,11 @@ struct DeviceConfig {
 BLEClient* pClient = nullptr;
 BLERemoteCharacteristic* pRemoteCharacteristic = nullptr;
 DeviceConfig device;
+const int lightOnBrightness = 40;
+const int lightOffBrightness = 100;
+static int lastPinState = LOW;
+unsigned long previousMillis = 0; 
+unsigned long interval = 0;
 
 std::vector<uint8_t> brightnessLEDCAR(int brightness) {
   brightness = std::max(1, std::min(brightness, 100));
@@ -124,14 +129,6 @@ void setBrightness(int brightness) {
     Serial.println("pRemoteCharacteristic is null. Cannot set brightness.");
   }
 }
-
-const int lightOnBrightness = 40;
-const int lightOffBrightness = 100;
-static int lastPinState = LOW;
-// bool on = false;
-unsigned long previousMillis = 0; 
-unsigned long interval = 0;
-
 
 void setup() {
   Serial.begin(115200);
